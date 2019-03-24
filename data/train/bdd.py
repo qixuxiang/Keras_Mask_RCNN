@@ -119,40 +119,18 @@ class BDD:
                     break
                 
             temp_boxes = boxes.copy()
+            with open('example.csv', "a", newline='') as f:
+                writer = csv.writer(f)
+                for _, annot in enumerate(temp_boxes):
+                    #print(annot['bbox'])
+                    #print(annot['category_id'])
+                    data_lst.append(abs_path+img_info['file_name'])
+                    data_lst.extend(annot['bbox'])
+                    data_lst.append(mapper.get(annot['category_id']))
+                    writer.writerow(data_lst)
+                    data_lst.clear()
             #if(len(temp_boxes)==0):
             #    print(img_info['file_name'])
-            if(len(temp_boxes)==0):
-            #print(img_info['file_name']
-                with open('example.csv', "a", newline='') as f:
-                    writer = csv.writer(f)
-                    data_lst.append(img_info['file_name'])
-                    print(img_info['file_name'])
-                    data_lst.append(None)
-                    data_lst.append(None)
-                    data_lst.append(None)
-                    data_lst.append(None)
-                    data_lst.append(None)
-                    writer.writerow(data_lst)
-                    data_lst.clear()
-
-            else:
-                with open('example.csv', "a", newline='') as f:
-                    writer = csv.writer(f)
-                    data_lst.append(abs_path+img_info['file_name'])
-                    data_lst.append(xmin)
-                    data_lst.append(ymin)
-                    data_lst.append(xmax)
-                    data_lst.append(ymax)
-                    data_lst.append(mapper.get(annotation['category_id']))
-                    writer.writerow(data_lst)
-                    data_lst.clear()
-         
-            '''
-            for _, annot in enumerate(temp_boxes):
-                print(idx+1)
-                print(annot)
-                #pass
-            '''
             bboxes[img] = temp_boxes
             boxes.clear()
             j += 1
