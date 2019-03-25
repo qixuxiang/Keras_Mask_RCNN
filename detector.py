@@ -57,7 +57,7 @@ class FasterRCNNDetector(object):
                                    trainable=True)
 
         self.model_rpn = Model(img_input, rpn_layers)
-        model_classifier_only = Model([feature_map_input, roi_input], classifier)
+        self.model_classifier_only = Model([feature_map_input, roi_input], classifier)
 
         self.model_classifier = Model([feature_map_input, roi_input], classifier)
 
